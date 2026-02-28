@@ -1,0 +1,94 @@
+.hero {
+  background: linear-gradient(135deg, #0d2a47 0%, #0a3d62 50%, #0d2a47 100%);
+  border: 1px solid #1e3352;
+  border-radius: 18px;
+  padding: 36px 40px;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.glow1 {
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(26, 159, 255, 0.15) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.glow2 {
+  position: absolute;
+  right: 80px;
+  bottom: -40px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(13, 209, 160, 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.title {
+  font-family: 'Nunito', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.subtitle {
+  color: #8ca3bb;
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+  max-width: 480px;
+  position: relative;
+  line-height: 1.6;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  background: #1a9fff;
+  color: #fff;
+  border: none;
+  border-radius: 11px;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(26, 159, 255, 0.35);
+}
+
+.btnSecondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e8f0f8;
+  border: 1px solid #1e3352;
+  border-radius: 11px;
+  padding: 12px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s;
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.13);
+}
