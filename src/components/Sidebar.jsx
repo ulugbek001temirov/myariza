@@ -46,7 +46,7 @@ export default function Sidebar({ activePage, setActivePage, onNewAppeal }) {
           <rect x="4" y="4" width="8" height="8" rx="2" stroke="#0dd1a0" strokeWidth="1.5" />
           <rect x="16" y="16" width="8" height="8" rx="2" stroke="#0dd1a0" strokeWidth="1.5" />
         </svg>
-        murojaat.uz
+        MyAriza
       </div>
 
       <div className={styles.navSection}>
