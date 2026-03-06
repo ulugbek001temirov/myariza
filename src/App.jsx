@@ -1,76 +1,50 @@
-import { useState, useRef } from 'react';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import StatsRow from './components/StatsRow';
-import CategoriesGrid from './components/CategoriesGrid';
-import MapSection from './components/MapSection';
-import AssistantSection from './components/AssistantSection';
-import RecentAppeals from './components/RecentAppeals';
-import SubmitModal from './components/SubmitModal';
-import styles from './App.module.css';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
+import Layout from './components/Layout';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import DashboardPage from './pages/DashboardPage';
+import AppealsPage from './pages/AppealsPage';
+import AppealDetailPage from './pages/AppealDetailPage';
+import NewAppealPage from './pages/NewAppealPage';
+import NotificationsPage from './pages/NotificationsPage';
+import ProfilePage from './pages/ProfilePage';
+
+function PrivateRoute({ children }) {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? (
+    <Layout>{children}</Layout>
+  ) : (
+    <Navigate to="/login" replace />
+  );
+}
 
 export default function App() {
-  const [activePage, setActivePage] = useState('home');
-  const [showModal, setShowModal] = useState(false);
-
-  const mapRef = useRef(null);
-  const assistantRef = useRef(null);
-
-  const scrollTo = (ref) => {
-    ref.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  const handleSetPage = (page) => {
-    if (page === 'map') {
-      setActivePage('map');
-      setTimeout(() => scrollTo(mapRef), 50);
-    } else if (page === 'assistant') {
-      setActivePage('assistant');
-      setTimeout(() => scrollTo(assistantRef), 50);
-    } else {
-      setActivePage(page);
-    }
-  };
-
   return (
-    <div className={styles.app}>
-      <Sidebar
-        activePage={activePage}
-        setActivePage={handleSetPage}
-        onNewAppeal={() => setShowModal(true)}
-      />
+    <Routes>
+      <Route path="/login"    element={<LoginPage />} />
+      <Route path="/register" element={<RegisterPage />} />
 
-      <div className={styles.main}>
-        <Header onNewAppeal={() => setShowModal(true)} />
+      <Route path="/" element={
+        <PrivateRoute><DashboardPage /></PrivateRoute>
+      } />
+      <Route path="/appeals" element={
+        <PrivateRoute><AppealsPage /></PrivateRoute>
+      } />
+      <Route path="/appeals/new" element={
+        <PrivateRoute><NewAppealPage /></PrivateRoute>
+      } />
+      <Route path="/appeals/:id" element={
+        <PrivateRoute><AppealDetailPage /></PrivateRoute>
+      } />
+      <Route path="/notifications" element={
+        <PrivateRoute><NotificationsPage /></PrivateRoute>
+      } />
+      <Route path="/profile" element={
+        <PrivateRoute><ProfilePage /></PrivateRoute>
+      } />
 
-        <div className={styles.content}>
-          <Hero onNewAppeal={() => setShowModal(true)} />
-          <StatsRow />
-          <CategoriesGrid
-            onMapClick={() => {
-              setActivePage('map');
-              setTimeout(() => scrollTo(mapRef), 50);
-            }}
-            onAssistantClick={() => {
-              setActivePage('assistant');
-              setTimeout(() => scrollTo(assistantRef), 50);
-            }}
-          />
-
-          <div ref={mapRef}>
-            <MapSection />
-          </div>
-
-          <div ref={assistantRef}>
-            <AssistantSection onUseTemplate={() => setShowModal(true)} />
-          </div>
-
-          <RecentAppeals onNewAppeal={() => setShowModal(true)} />
-        </div>
-      </div>
-
-      {showModal && <SubmitModal onClose={() => setShowModal(false)} />}
-    </div>
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
